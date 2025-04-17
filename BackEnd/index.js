@@ -5,9 +5,10 @@ import messageRoute from "./routes/messageRoute.js";
 import { connectDB } from "./utils/connectDB.js";
 import cookieParser from "cookie-parser";
 import cors from "cors";
+import { app,server } from "./utils/socket.js";
 
 config();
-const app = express();
+
 
 // Middleware to parse JSON request bodies with increased size limit (50MB)
 app.use(express.json({ limit: '50mb' }));
@@ -21,7 +22,7 @@ app.use("/api/auth/", authRoute);
 app.use("/api/messages/", messageRoute);
 
 const PORT = process.env.PORT || 3000;
-app.listen(PORT, () => {
+server.listen(PORT, () => {
   console.log(`server is running in ${PORT}`);
   connectDB();
 });
